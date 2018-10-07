@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>原生js选项卡</title>
+	</head>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			overflow: hidden;
+			/*注意父级元素塌陷，详情见博客*/
+		}
+		ul li{
+			width: 100px;
+			height: 30px;
+			float: left;
+			border: 1px solid #000;
+			list-style: none;
+			border-right: none;
+			text-align: center;
+			line-height: 30px;
+			cursor: pointer;
+		}
+		ul li:last-child{
+			border-right: 1px solid #000000;
+		}
+		.box{
+			position: relative;
+		}
+		.box div{
+			width: 304px;
+			height: 300px;
+			position: absolute;
+			display: none;
+		}
+		.box div:first-child{
+			background-color: red;
+		}
+		.box div:nth-child(2){
+			background-color: blue;
+		}
+		.box div:last-child{
+			background-color: yellow;
+		}
+		.box .show{
+			display: block;
+		}
+		.box .hide{
+			display: none;
+		}
+		.click{
+			background-color: #ccc;
+		}
+	</style>
+
+	<body>
+		<ul>
+			<li class="click">red</li>
+			<li>blue</li>
+			<li>yellow</li>
+		</ul>
+		<div class="box">
+			<div class="show"></div>
+			<div></div>
+			<div></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		//原声js
+		
+		var liAll = document.querySelectorAll('li');//获取要操作的元素——所有的li
+		var divAll = document.querySelectorAll('.box div');//获取被操作的跟随元素——.box中所有的div
+		console.log(divAll)
+		for (var i = 0;i<liAll.length;i++) { //for循环为每一个元素添加点击事件
+			liAll[i].index = i;				//作用域的问题，如果for循环使用let声明，则不需要该行代码
+			liAll[i].onclick = function () { 
+				for (var j = 0;j<liAll.length;j++) {
+					liAll[j].className = "";//将所有被操作的元素的背景色消失
+					divAll[j].className = "hide";//将所有被操作的元素全部隐藏
+				}
+				this.className = "click";	//当前被点击的元素背景色改变
+				divAll[this.index].className = "show";	//将所有被操作的元素跟随显示
+			}
+		}
+	</script>
+</html>
