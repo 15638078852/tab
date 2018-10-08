@@ -1,2 +1,2 @@
 # tab
-原生js与jQuery快速的实现选项卡的编写
+原生js与jQuery快速的实现选项卡
