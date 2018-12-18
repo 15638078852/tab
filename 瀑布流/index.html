@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>瀑布流</title>
+	</head>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#content{
+			position: relative;
+		}
+		.box{
+			padding: 5px;
+			float: left;
+		}
+		.box_img{
+			padding: 5px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			box-shadow: 0 0 5px #ccc;
+		}
+		.box_img img{
+			width: 100%;
+			height: auto;
+		}
+	</style>
+	<body>
+		<div id="content" class="container">
+			<div class="box col-2"><div class="box_img"><img src="images/1.jpg" ></div></div>
+			<div class="box col-2"><div class="box_img"><img src="images/3.jpg" ></div></div>	
+			<div class="box col-2"><div class="box_img"><img src="images/6.jpg" ></div></div>	
+			<div class="box col-2"><div class="box_img"><img src="images/8.jpg" ></div></div>	
+			<div class="box col-2"><div class="box_img"><img src="images/9.jpg" ></div></div>	
+			<div class="box col-2"><div class="box_img"><img src="images/4.jpg" ></div></div>
+			<div class="box col-2"><div class="box_img"><img src="images/1.jpg" ></div></div>
+			<div class="box col-2"><div class="box_img"><img src="images/3.jpg" ></div></div>	
+			<div class="box col-2"><div class="box_img"><img src="images/1.jpg" ></div></div>
+			<div class="box col-2"><div class="box_img"><img src="images/3.jpg" ></div></div>	
+			<div class="box col-2"><div class="box_img"><img src="images/6.jpg" ></div></div>	
+			<div class="box col-2"><div class="box_img"><img src="images/8.jpg" ></div></div>	
+			<div class="box col-2"><div class="box_img"><img src="images/9.jpg" ></div></div>	
+			<div class="box col-2"><div class="box_img"><img src="images/4.jpg" ></div></div>
+			<div class="box col-2"><div class="box_img"><img src="images/1.jpg" ></div></div>
+			<div class="box col-2"><div class="box_img"><img src="images/3.jpg" ></div></div>
+			<div class="box col-2"><div class="box_img"><img src="images/1.jpg" ></div></div>
+			<div class="box col-2"><div class="box_img"><img src="images/3.jpg" ></div></div>	
+			<div class="box col-2"><div class="box_img"><img src="images/6.jpg" ></div></div>	
+			<div class="box col-2"><div class="box_img"><img src="images/8.jpg" ></div></div>	
+			<div class="box col-2"><div class="box_img"><img src="images/9.jpg" ></div></div>	
+			<div class="box col-2"><div class="box_img"><img src="images/4.jpg" ></div></div>
+			<div class="box col-2"><div class="box_img"><img src="images/1.jpg" ></div></div>
+			<div class="box col-2"><div class="box_img"><img src="images/3.jpg" ></div></div>
+			<div class="box col-2"><div class="box_img"><img src="images/1.jpg" ></div></div>
+			<div class="box col-2"><div class="box_img"><img src="images/3.jpg" ></div></div>	
+			<div class="box col-2"><div class="box_img"><img src="images/6.jpg" ></div></div>	
+			<div class="box col-2"><div class="box_img"><img src="images/8.jpg" ></div></div>	
+			<div class="box col-2"><div class="box_img"><img src="images/9.jpg" ></div></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		
+		function imgLocation () {
+			var content = document.querySelector("#content");
+			//获取所有的img图片,将其放置在数组中
+			var imgAll = document.querySelectorAll(".box");
+			var imgArray = [];
+			for (var i = 0; i<imgAll.length;i++) {
+				imgArray.push(imgAll[i]);
+			}
+			// console.log(imgArray);
+			//获取每排放置的图片的个数
+			var num = Math.floor(content.offsetWidth / imgAll[0].offsetWidth);
+			//获取第一排元素中所有元素的高度
+			var imgHeightaArray = [];
+			for (var i = 0;i<imgArray.length;i++) {
+				if (i < num) {
+					imgHeightaArray[i] = imgArray[i].offsetHeight;
+				} else{
+					//获取元素中最小高度最小的元素
+					var minImgHeight = Math.min.apply(null , imgHeightaArray);
+					//获取最小高度元素所处的位置
+					var imgIndex = getImgMinHeight(imgHeightaArray , minImgHeight);
+					//将下一排的元素防止位置
+					imgArray[i].style.position = "absolute";
+					//将下一排的元素距离顶部的高度为上一拍的最低高度相同
+					imgArray[i].style.top = minImgHeight + "px";
+					//将下一排的元素距离左边的距离为上一排最小高度的索引*图片盒子的宽度
+					imgArray[i].style.left = imgArray[imgIndex].offsetLeft + 'px';
+					//重定义上一排最小高度元素的高度
+					imgHeightaArray[imgIndex] = imgHeightaArray[imgIndex] + imgArray[i].offsetHeight;
+				}
+			}
+			//获取最小高度的元素--封装函数
+			function getImgMinHeight (imgHeightaArray , minImgHeight) {
+				for (var i in imgHeightaArray) {
+					if (imgHeightaArray[i] == minImgHeight) {
+						return i;
+					}
+				}
+			}
+		}
+		
+		imgLocation();
+	//监听滚动条自动加载
+	/*
+	分析:
+		1.滑动滚轮的时候获取最后一张图片距离顶部的距离
+		2.获取鼠标滚轮距离顶部的距离
+		3.获取当前屏幕的可视区域
+		当1<(2+3)的时候自动加载图片
+	*/
+	window.onscroll = function  () {
+		var content = document.querySelector("#content");
+		//模拟json数据
+		var imgData = {data:[{"src":"1.jpg"},{"src":"3.jpg"},{"src":"6.jpg"},{"src":"8.jpg"},{"src":"9.jpg"},{"src":"4.jpg"}]};
+		if (checkFlag()) {
+			for (var i= 0;i<imgData.data.length;i++) {
+				var newDiv = document.createElement("div");
+				newDiv.className = "box col-2";
+				content.appendChild(newDiv);
+				var boxImg = document.createElement("div");
+				boxImg.className = "box_img";
+				newDiv.appendChild(boxImg);
+				var img = document.createElement("img");
+				img.src = "images/" + imgData.data[i].src;
+				boxImg.appendChild(img);
+			}
+			imgLocation();
+		}
+	}
+	//距离判断
+	function checkFlag () {
+		var content = document.querySelector("#content");
+		//获取所有的img图片,将其放置在数组中
+		var imgAll = document.querySelectorAll(".box");
+		//获取最后一张图片距离顶部的距离
+		var lastImgHeight = imgAll[imgAll.length-1].offsetTop;
+		//鼠标滚轮距离顶部的距离
+		var scrollHeight = document.documentElement.scrollTop || document.body.scrollTop;
+		// 获取当前屏幕的可视区域
+		var pageHeight = document.documentElement.clientHeight || document.body.clientHeight;
+		if(lastImgHeight < scrollHeight + pageHeight){
+			return true;
+		}
+	}
+	</script>
+</html>

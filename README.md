@@ -1,2 +1,4 @@
-# tab
-原生js与jQuery快速的实现选项卡
+# demo
+  javascript 中常出现的一些下的案例
+  js小demo
+

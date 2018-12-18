@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>jQuery实现轮播图效果</title>
+	</head>
+	<link rel="stylesheet" type="text/css" href="css/index.css"/>
+	<script type="text/javascript" src="../轮播图/js/jquery-2.1.0.js" ></script>
+	<body>
+		<!--
+        	作者：1030288774@qq.com
+        	时间：2018-10-11
+        	描述：使用jQuery实现轮播图效果
+        	业务需求：
+        		1.3s自动切换图片,图片切换时提示点跟随切换
+        		2.鼠标划到图片上，自动切换轮播图停止
+        		3.指示点划过切换对应的图片，图片切换时提示点跟随切换
+        		4.点击上一页下一页按钮切换图片
+        		5.图片切换时有渐变的效果
+        	类名解释
+        		1.sowingMap——轮播图
+        		
+        -->
+        <div class="sowingMap">
+        	<ul class="imgPart">
+	        	<li class="imgSwitch imgShow"><img src="img/1.jpg"/></li>
+	        	<li class="imgSwitch"><img src="img/2.jpg"/></li>
+	        	<li class="imgSwitch"><img src="img/3.jpg"/></li>
+	        	<li class="imgSwitch"><img src="img/4.jpg"/></li>
+	        	<li class="imgSwitch"><img src="img/5.jpg"/></li>
+	        </ul>
+	        <div class="spotPart">
+	        	<p class="spotColor"></p>
+	        	<p></p>
+	        	<p></p>
+	        	<p></p>
+	        	<p></p>
+	        </div>
+	        <div class="loopChange">
+	        	<p class="preImg">&lt;</p>
+	        	<p class="nextImg">&gt;</p>
+	        </div>
+        </div>
+        <!--原生js实现上述效果-->
+        <!--<script type="text/javascript" src="../轮播图/js/javascript.js" ></script>-->
+        <!--jQuery实现轮播图效果-->
+		<script type="text/javascript" src="../轮播图/js/jQuery.js" ></script>
+		<script src="" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

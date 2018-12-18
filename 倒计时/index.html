@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>倒计时</title>
+	</head>
+	<body>
+		距离活动结束还有：<div><span></span>月 <span></span>天 <span></span>时 <span></span>分 <span></span>秒 </div>
+	</body>
+	<script type="text/javascript">
+		/*
+		 *倒计时实现的思路：
+		 * 1、获取到时间戳
+		 * 2、定义结束的时间——转化为时间戳
+		 * 3、得出插值，转化成天时分秒
+		 * 4、调用定时器 
+		 * */
+		//定义一个活动结束的时间
+		var stopTime = new Date(2018,12,30,23,59,59);
+		//因为date函数的月份时从0-11.所以此时计算时，需减去相差的一个月的时间戳
+		var stopTimeStamp = stopTime.getTime();//结束的时候的时间戳
+		stopTimeStamp = stopTimeStamp - (1000*60*60*24*31);
+		daojishi();
+		
+		setInterval(function  () {
+			daojishi();
+		},1000)
+		
+		function daojishi () {
+			var date = new Date();
+			var timeStamp = date.getTime();
+//			console.log(timeStamp)
+			var remTimeStamp = stopTimeStamp-timeStamp;
+			//当前时间与活动结束时间的剩余时间戳
+			--remTimeStamp;
+//			console.log(remTimeStamp)
+			if ((timeStamp-stopTimeStamp)>0) {
+				document.querySelector('div').innerHTML = "活动结束！";
+			} else{
+				var second = Math.ceil( (remTimeStamp / 1000) % 60 );//s ms/1000(s)/60
+				second = second - 1;
+				if (second == 60) {
+					second == 59
+				}
+				else if(second<=9){
+					second = "0"+second;
+				}
+				var minute = Math.ceil( (remTimeStamp/1000/60) % 60 );//m
+				var hours = Math.ceil( (remTimeStamp/1000/60/60) % 24 );//h
+				var days = Math.ceil( (remTimeStamp/1000/60/60/24) % 31);//d
+				var mou = Math.ceil( (remTimeStamp/1000/60/60/24/31) % 12);//yue
+				document.querySelector('div span:first-child').innerHTML = mou - 1;
+				document.querySelector('div span:nth-child(2)').innerHTML = days;
+				document.querySelector('div span:nth-child(3)').innerHTML = hours;
+				document.querySelector('div span:nth-child(4)').innerHTML = minute;
+				document.querySelector('div span:last-child').innerHTML = second;
+			}
+		}
+	</script>
+</html>

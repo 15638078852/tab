@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>元素移动</title>
+	</head>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.box{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+		}
+	</style>
+	<body>
+		<div class="box"></div>
+	</body>
+	<script type="text/javascript">
+		//获取移动的元素
+		var box = document.querySelector(".box");
+		//设置初始值
+		var value = 0;
+		//创建每一帧渲染前要执行的方法
+		var add = function  (){
+			//在下一帧渲染之前继续执行add方法
+			requestAnimationFrame(add);
+			//每帧数值增加5个
+			value += 1;
+			//将数值设置给 方块 的 css 属性 transform 属性可以控制元素在水平方向上的位移
+			box.style.transform = "translateX("+value+"px"+")";
+		}
+		//在下一帧渲染之前执行add方法
+		requestAnimationFrame(add);
+	</script>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+	</head>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+	<body>
+		<div id="test" style="width:1px;height:17px;background:#0f0;">0%</div>
+		<input type="button" value="Run" id="run" />
+	</body>
+	<script type="text/javascript">
+		//浏览器见兼容
+		window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame ||
+			window.msRequestAnimationFrame;
+		//设置初始值
+		var start = null;
+		//获取元素
+		var ele = document.getElementById("test");
+		//设置步长
+		var progress = 0;
+
+		function step(timestamp) {
+			progress += 1;
+			ele.style.width = progress + "%";
+			ele.innerHTML = progress + "%";
+			if (progress < 100) {
+				requestAnimationFrame(step);
+			}
+		}
+		requestAnimationFrame(step);
+		document.getElementById("run").addEventListener("click", function() {
+			ele.style.width = "1px";
+			progress = 0;
+			requestAnimationFrame(step);
+		}, false);
+	</script>
+</html>
