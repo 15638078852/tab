@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>关于for循环的相关写法</title>
+</head>
+
+<body>
+
+</body>
+<script type="text/javascript">
+	// 数组的循环值
+	let arr = [1, 2, 3, 4, 5];
+	//基本的for循环语法
+	console.log("基本for循环的写法");
+	for (let i = 0; i < arr.length; i++) {
+		console.log(arr[i]);
+	}
+	//for-in
+	console.log("for-in");
+	for (let i in arr) {
+		console.log(i); //获取的是数组的索引
+		console.log(arr[i]) //
+	}
+	//for-of
+	console.log("for-of");
+	for (const arrValue of arr) {
+		console.log(arrValue);
+	}
+	console.log("forEach");
+	arr.forEach(a => {
+		console.log(a);
+	});
+	console.log("==================");
+
+	//对象的循环值
+	let obj = {
+		a: {
+			name: "小明",
+			age: "18"
+		},
+		b: {
+			name: "小华",
+			age: 18,
+			hoopy: {
+				like: "打篮球"
+			}
+		}
+		// name:"小华",
+		// age:18
+	}
+	// 控制台没有输出内容
+	// for (let a = 0; a < obj.length; a++) {
+	// 	const element = obj[a];
+	// 	console.log(element);
+	// }
+	// 控制台报错 obj is not iterble(迭代)
+	// for (const a of o bj) {
+	// 	console.log(a)
+	// }
+	// 语法错误，obj不是一个函数
+	// obj.forEach(element => {
+	// 	console.log(element)
+	// });
+	for (let a in obj) {
+		console.log(a);
+		if (obj.hasOwnProperty(a)) { //判断，只会继承自身的属性，不会继承从别的地方传过来的属性
+			const element = obj[a];
+			console.log(element, a)
+		}
+	}
+
+	// //数组对象
+	// console.log("=============");
+	// let arrObj = [{name:"张三",age:18},{name:'李四',age:20}];
+	// for(let i = 0;i<arrObj.length;i++){
+	// 	// console.log(i);//索引
+	// 	console.log(arrObj[i])
+	// }
+	// for (const a in arrObj) {
+	// 	if (arrObj.hasOwnProperty(a)) {
+	// 		const element = arrObj[a];
+	// 		console.log(element,a);
+	// 	}
+	// }
+	// for (const a of arrObj) {
+	// 	console.log(a)
+	// }
+	// arrObj.forEach(element => {
+	// 	console.log(element)
+	// });
+
+
+	// var key = {
+
+	// }
+	var str = 'abcdefg';
+	for (const str1 of str) {
+		console.log(str1);
+	}
+
+	// for-of循环集合
+	var arrLike = [1, 1, 2, 5, 4, 4, 5, "a", "a"];
+	var arrSet = new Set(arrLike);
+	for (const value of arrSet) {
+		console.log(value)
+	}
+	console.log("================");
+	var arrEach = [1,2,3,4];
+	arrEach.forEach(value => {
+		console.log(value)
+	});
+
+	// while循环与do while循环
+	var i = 0;
+	while (i<10) {
+		i++;
+		console.log(i);
+	}
+	// do {
+	// 	i++;
+	// 	console.log(i);
+		
+	// } while (i<10);
+</script>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>层级问题</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        div{
+            width: 150px;
+            height: 50px;
+            display: inline-block;
+            position: absolute;
+        }
+        .box1{
+            background-color: #0f0f0f;
+            left: 0;
+        }
+        .box2{
+            background-color:#ff0;
+            left: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1"></div>
+    <div class="box2"></div>
+</body>
+<script>
+    document.querySelector('.box1').onmouseover = function(){
+        document.querySelector('.box2').style.left = 0;
+    }
+    document.querySelector('.box2').onmouseout = function(){
+        document.querySelector('.box2').style.left = "150px";
+    }
+
+</script>
+</html>
